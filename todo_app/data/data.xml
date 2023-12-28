@@ -1,0 +1,24 @@
+<!-- para registrar datos, en el model va el nombre de  _name = "todo.app" que se encunetra en 
+la carpeta models -->
+<odoo>
+  <record id="todo_app.tarea_1" model="todo.app">
+    <field name="name">Tarea #1 : Barrer</field>
+    <field name="state">Borrador</field>
+  </record>
+  <record id="todo_app.tarea_2" model="todo.app">
+    <field name="name">Tarea #2 : Diseño CSS</field>
+    <field name="state">Cancelada</field>
+  </record>
+  <record id="todo_app.tarea_3" model="todo.app">
+    <field name="name">Tarea #3 : Proyecto Consiti</field>
+    <field name="state">Borrador</field>
+  </record>
+  <record id="todo_app.tarea_4" model="todo.app">
+    <field name="name">Tarea #4 : Terminar Curso Odoo</field>
+    <field name="state">Terminada</field>
+  </record>
+  <record id="todo_app.tarea_5" model="todo.app">
+    <field name="name">Tarea #5 : Ir al dentista</field>
+    <field name="state">Cancelada</field>
+  </record>
+</odoo>
