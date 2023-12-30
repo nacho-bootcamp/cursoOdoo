@@ -7,13 +7,23 @@ from odoo import fields, models
 class Movimiento(models.Model):
     _name = "sa.movimiento"
     _description = "Movimiento"
+    _inherit = "mail.thread"
+    # hilo de mensaje aparece la notificacion si modificamos
 
-    name = fields.Char("Nombre")
+    name = fields.Char("Nombre", required=True)
     # el primero se almacena en la base de datos y el segundo se muestar en la vistas
-    type_move = fields.Selection(selection=[("ingreso", "Ingreso"), ("gasto", "Gasto")])
-    date = fields.Datetime("Fecha")
-    amount = fields.Float("Monto")
+    type_move = fields.Selection(
+        selection=[("ingreso", "Ingreso"), ("gasto", "Gasto")],
+        string="Tipo",
+        default="ingreso",
+        required=True,
+        track_visibility="onchange",
+    )
+    date = fields.Datetime("Fecha", track_visibility="onchange")
+    amount = fields.Float("Monto", track_visibility="onchange")
     receipt_image = fields.Binary("Foto del Recibo")
+    notas = fields.Html("Notas")
+    currency_id = fields.Many2one("res.currency", default=1)
     # primer parametro nombre del modelo que vamos a relacionar
     user_id = fields.Many2one("res.users", string="Usuario")
     category_id = fields.Many2one("sa.category", string="Categoria")
