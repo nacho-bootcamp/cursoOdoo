@@ -62,26 +62,42 @@
       <field name="category_id"/>
       <field name="tags_ids"/>
 
+
       <filter name="filter_tipo_ingresos" string="Ingresos" domain="[('type_move', '=', 'ingreso')]"/>
       <filter name="filter_tipo_gastos" string="Gastos" domain="[('type_move', '=', 'gastos')]" />
-      <separatos/>
+      <separator/>
       <filter name="filter_fecha_hoy" string="Hoy" 
-      domain="[('date','&gt;=',datetime.datetime.now().strftime('%Y-%m-%d 00:00:00')),
-      ('date', '&lt;=',datetime.datetime.now().strftime('%Y-%m-%d 23:59:59'))]"/>
+        domain="[('date', '&gt;=', context_today().strftime('%Y-%m-%d 00:00:00')),
+                 ('date', '&lt;=', context_today().strftime('%Y-%m-%d 23:59:59'))]"/>
 
-      <filter name="filter_fecha_semana" string="Ultimos 7 dias" 
-      domain="[('date','&lt;=',context_todar().strftime('%Y-%m-%d 23:59:59')),
-      ('date', '&gt;=',(context_today()-datetime_timedelta(days=7)).strftime('%Y-%m-%d 00:00:00'))]"/>
+
+  <filter name="filter_fecha_semana" string="Últimos 7 días" 
+        domain="[('date', '&gt;=', (context_today() - datetime.timedelta(days=7)).strftime('%Y-%m-%d 00:00:00')),
+                 ('date', '&lt;=', context_today().strftime('%Y-%m-%d 23:59:59'))]"/>
+
 
 
       <filter name="group_type_move" string="Tipo"  context="{'group_by': 'type_move'}" />
       <filter name="group_date" string="Fecha"  context="{'group_by': 'date'}" />
-        
-      </group>
     </search>
   </field>
 </record>
 
+<record id="view_form_category" model="ir.ui.view">
+  <field name="name">view.form.category</field>
+  <field name="model">sa.category</field>
+  <field name="arch" type="xml">
+    <form>
+      <sheet>
+        <group>
+          <field name="name" /> 
+          <button name="ver_movimientos" type="object" string="Ver Movimiento"/>
+        </group>
+      </sheet>
+    </form>
+  
+  </field>
+</record>
 
 
 
