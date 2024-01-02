@@ -50,6 +50,34 @@ class Movimiento(models.Model):
             self.name = "Gasto: "
             self.amount = 100
 
+    @api.model
+    def create(self, vals):
+        name = vals.get("name", "-")
+        amount = vals.get("amount", "0")
+        type_move = vals.get("type_move", "")
+        date = vals.get("date", "")
+        notas = """
+        <p>Tipo de Movimiento:{}</p>
+        <p>Nombre:{}</p>
+        <p>Monto:{}</p>
+        <p>Fecha:{}<br></p> """
+        vals["notas"] = notas.format(
+            type_move,
+            name,
+            amount,
+            date,
+        )
+        res = super(Movimiento, self).create(vals)
+        return res
+
+    def unlink(self):
+        for record in self:
+            if record.amount >= 50:
+                raise ValidationError(
+                    "Movimiento con montos mayores a 50 no podran ser eliminados"
+                )
+        return super(Movimiento, self).unlink()
+
 
 class Category(models.Model):
     _name = "sa.category"
